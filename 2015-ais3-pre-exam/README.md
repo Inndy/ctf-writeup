@@ -6,7 +6,8 @@
 
 ``` sh
 mkdir p960x960
-curl https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-prn1/p960x960/851556_443281069111871_602278786_n.png -o p960x960/851556_443281069111871_602278786_n.png
+curl https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-prn1/p960x960/851556_443281069111871_602278786_n.png \
+     -o p960x960/851556_443281069111871_602278786_n.png
 zip fb_plain.zip p960x960/851556_443281069111871_602278786_n.png
 pkcrack -C facebook.zip -c p960x960/851556_443281069111871_602278786_n.png \
         -P fb_plain.zip -p p960x960/851556_443281069111871_602278786_n.png \
@@ -55,7 +56,9 @@ Don't ask me. I just fuzz it manually and I HATE WEB!
 
 This is a packed PE with upx shell, but it was modified manually, so we can't just do `upx -d`
 
-You can just simply unpack it by [this metohd](http://www.behindthefirewalls.com/2013/12/unpacking-upx-file-manually-with-ollydbg.html), and you can analyze it now!
+You can just simply unpack it by
+[this metohd](http://www.behindthefirewalls.com/2013/12/unpacking-upx-file-manually-with-ollydbg.html),
+and you can analyze it now!
 
 1. run it
 2. open [Cheat Engine](http://cheatengine.org/)
