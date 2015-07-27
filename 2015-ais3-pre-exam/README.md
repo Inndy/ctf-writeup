@@ -146,7 +146,52 @@ TBA
 
 ## crypto-1
 
-TBA
+File name is a hint, `google("vigenere");` and you will find
+[Vigenère cipher](https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher) on Wikipedia and
+[Vigenère Cipher Codebreaker](http://www.mygeocachingprofile.com/codebreaker.vigenerecipher.aspx).
+
+Here is the first result:
+
+```
+Based on repetitions in the encrypted text, the most probable key length is 27 characters.
+
+...
+
+-- MESSAGE w/Key #1 = 'jbhpsxohfjbnpoboomjbnpsbohf' ----------------
+thk vikenere cithek bs a method of etcrcpting althauxtic text by usong e series oj diyyerent caesar iiplers baseh on mae letters of a qeyaord. it is e sifile form of polealthabetic wublmitution.thoumh tle cipher ms etly to understatd ard implemint, yhr three centuxiew it resisxed tel attempts to hreek it. many teoiee have tried tu imtlement ercrrition schemes zhax are essertitely vigenere cophirs. congretuettions, the key os ir http://ctf.eis3.hkg/files/thekeeofzigenerelahtaa.txt
+
+-- MESSAGE w/Key #2 = 'jbhpsxohfjbnpoboomjbnpsbohp' ----------------
+thk vikenere cithek bs a method ef etcrcpting althauxtic text bo usong e series oj diyyerent caeiar iiplers baseh on mae letters ef a qeyaord. it is e sifile form of folealthabetic wublmitution.txoumh tle cipher ms etly to underitatd ard implemint, yhr three cedtuxiew it resisxed tel attempti to hreek it. many teoiee have triud tu imtlement ercrrition scheces zhax are essertitely vigenehe cophirs. congretuettions, the aey os ir http://ctf.eis3.hkg/files/thukeeofzigenerelahtaa.txt
+
+-- MESSAGE w/Key #3 = 'jbhpsxohfjbnpoboomjbnpsbosf' ----------------
+thk vikenere cithek bs a methos of etcrcpting althauxtic text qy usong e series oj diyyerent catsar iiplers baseh on mae letterh of a qeyaord. it is e sifile form ou polealthabetic wublmitution.ihoumh tle cipher ms etly to undegstatd ard implemint, yhr three ctntuxiew it resisxed tel attempis to hreek it. many teoiee have trxed tu imtlement ercrrition schtmes zhax are essertitely vigentre cophirs. congretuettions, tht key os ir http://ctf.eis3.hkg/files/twekeeofzigenerelahtaa.txt
+```
+
+It seems the key length is much shorter, so we try again with the key size option. (len = 9)
+
+```
+-- MESSAGE w/Key #1 = 'jbnpsbohf' ----------------
+the vigenere cipher is a method of encrypting alphabetic text by using a series of different caesar ciphers based on the letters of a keyword. it is a simple form of polyalphabetic substitution.though the cipher is easy to understand and implement, for three centuries it resisted all attempts to break it. many people have tried to implement encryption schemes that are essentially vigenere ciphers. congratulations, the key is in http://ctf.ais3.org/files/thekeyofvigenerehahaha.txt
+```
+
+Also, we can write a little program to perform known-plaintext attack if you notice that the pattern of blank is same as first paragraph of [Wikipedia page](https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher). 
+
+[assets/crypto1.py](assets/crypto1.py)
+
+```
+Original:
+the vigenere cipher is a method of encrypting alphabetic text by
+cir kahsujaf pxhisy nb b ztlick to farjzdanwh nahioijcjp iwyh id
+Cleaned:
+thevigenerecipherisamethodofencryptingalphabetictextbyusingaseri
+cirkahsujafpxhisynbbztlicktofarjzdanwhnahioijcjpiwyhiddtvcybglwr
+Key length is 9
+Key is [9, 1, 13, 15, 18, 1, 14, 7, 5] // IAMORANGE
+Decrypted:
+the vigenere cipher is a method of encrypting alphabetic text by using a series of different caesar ciphers based on the letters of a keyword. it is a simple form of polyalphabetic substitution.
+
+though the cipher is easy to understand and implement, for three centuries it resisted all attempts to break it. many people have tried to implement encryption schemes that are essentially vigenere ciphers. congratulations, the key is in http://ctf.ais3.org/files/thekeyofvigenerehahaha.txt
+```
 
 ## crypto-2
 
@@ -154,4 +199,4 @@ TBA
 
 ## crypto-3
 
-QAQ
+Using [HashPump](https://github.com/bwall/HashPump). And this is the [exploit](assets/crypto3.py).
