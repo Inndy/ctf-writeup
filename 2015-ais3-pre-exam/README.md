@@ -26,9 +26,9 @@ unzip clean.zip key.txt
 c4 is a gzip compressed tarball and unpack it to get a bitmap file.
 
 you will see some fuzzy words through fill tool and
-use `hexdump c4.bmp` you will figure out a lot f all 0xff rows
+use `hexdump c4.bmp` you will figure out a lot f all 0xff rows.
 
-Here's a one-line solution
+Here's a one-line solution:
 
 ``` sh
 sed -i "s/\xff/\x00/g" b.bmp
@@ -38,29 +38,29 @@ sed -i "s/\xff/\x00/g" b.bmp
 
 ## web-1
 
-There is a local file inclusion vulnerability
+There is a local file inclusion vulnerability:
 
 `http://52.69.163.194/web1/?page=php://filter/convert.base64-encode/resource=index`
 
-And you can see the flag in the comment of php code
+And you can see the flag in the comment of php code.
 
 ( @orangetw told me this :P )
 
 ## web-2
 
-[JavaScript Deobfuscator](https://github.com/palant/jsdeobfuscator) plugin for Firefox is your friend
+[JavaScript Deobfuscator](https://github.com/palant/jsdeobfuscator) plugin for Firefox is your friend.
 
 ![JavaScript Deobfuscator](assets/javascript-deobfuscator.png)
 
 ## web-3
 
-Post payload is `username=root&password=\' or 1=1 #\`
+Post payload is `username=root&password=\' or 1=1 #\`.
 
 Don't ask me. I just fuzz it manually and I HATE WEB!
 
 ## bin-1
 
-This is a packed PE with upx shell, but it was modified manually, so we can't just do `upx -d`
+This is a packed PE with upx shell, but it was modified manually, so we can't just do `upx -d`.
 
 You can just simply unpack it by
 [this metohd](http://www.behindthefirewalls.com/2013/12/unpacking-upx-file-manually-with-ollydbg.html),
@@ -72,7 +72,7 @@ and you can analyze it now!
 
 ## bin-2
 
-This one is x64 shellcode
+This one is x64 shellcode.
 
 ``` sh
 python2 -c "print \"$(tr -d '\r' < sc.txt | tr -d '\n')\"" | \
