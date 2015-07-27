@@ -4,6 +4,12 @@
 
 ## misc-2
 
+Use pkcrack to decrypt `key.txt`.
+
+Here is the image:
+
+![https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-prn1/p960x960/851556_443281069111871_602278786_n.png](assets/851556_443281069111871_602278786_n.png)
+
 ``` sh
 mkdir p960x960
 curl https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-prn1/p960x960/851556_443281069111871_602278786_n.png \
