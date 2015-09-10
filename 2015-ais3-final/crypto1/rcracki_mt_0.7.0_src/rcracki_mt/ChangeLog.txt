@@ -1,0 +1,111 @@
+[rcracki_mt ChangeLog]
+
+0.7.0 (28 Oct 2012, 21:42:52):
+* charset.txt if missing from the running dir falls back to an internal set
+* merge gui (GTK)
+* Add -d to run sha1 hashes against mysqlsha1 tables (sourceforge bug #2940042)
+* HashAlgorithm.cpp/HashRoutine.cpp finally share the common versions
+* hybrid2 keyspace calculations corrected
+* cuda support (pre-calculation only as false alarm checking still has bugs)
+* refactoring of all RT file readers
+* refactoring of CrackEngine.cpp
+
+0.6.6 (11 Jul 2011, 01:42:30):
+* RTI2.0 - improved format with header
+* memory leak fixes
+* file descriptor leak fixes
+* OSX (and some other compiler) warnings fixed
+* sourceforge bug #2926357
+	fix factorial for permutation display for unicode correction
+	move from clock() to gettimeofday()
+* fix sourceforge bug #2875013, output ntlm case correction to -o file
+* merged with common/rt_api to remove some of the duplication of files
+* new make release target to make life easier for me in light of the merge
+* cleanup of using namespace std; and other using * constructs
+* move to the use of stat for filename length over the fseek/ftell method
+
+0.6.5.2 (06 Nov 2010, 20:40:05):
+* rti2 fixes part 2
+* UINT4 -> uint32
+* memory long/unsigned cleanup
+
+0.6.5.1 (25 Oct 2010, 15:50:10):
+* rti2 fixes courtesy of PowerBlade
+
+0.6.5 (24 Oct 2010, 18:21:25):
+* code changes to allow building via mingw and avoid VC++
+* linux thread priority set to nice value of 2
+* rti2 support
+* replaced clock_t usage with gettimeofday
+* add pre-calculation timing per feature request #3025688 from sourceforge
+* fix bug #3050821 from sourceforge - missing break for non x86/x86_64 arch
+* improve hash performance by moving off openssl to the local faster methods
+* sha1 local implementation was *slower* than openssl for x86/x86_64
+
+0.6.4 (05 Jul 2010, 03:12):
+* add -m to allow users to limit memory usage - courtesy of uroskn
+* fix memory code that made incorrect assumptions about the MemoryPool
+* fix linux memory code - using only info.freeram is incorrect
+* cleanup of the nested if/elif/else stuctures
+* annotate x86 specific sections of code
+* licensing review and GPLv2 compliance
+* cleanup of unused items
+* restructure Makefile
+* cleanup memory leaks
+
+0.6.3 (21 Oct 2009, 21:05):
+* Fixed x86_64 linux compilation
+* Fixed x86_64 linux segmentation fault
+* Fixed 64bit support in md4 code
+* Added support for: FreeBSD, NetBSD, OpenBSD, and MacOSX
+
+0.6.2 (2 Jul 2009, 13:37):
+* Fixed linux support (tty stuff and now actually compiles)
+* Fixed precalculation code
+
+0.6.1 (14 May 2009, 22:12):
+* bug fixed where the list of rainbow tables is doubled when you resume a session and you have default RT locations in your ini
+
+0.6 (14 May 2009, 20:47):
+* Finding .rti files recursively
+* Fixed memory allocation bugs (also trying to save appropriate amount of memory for chainwalksets... these can become really large with the new tables)
+* Real pause/resume function, you can resume a session with -r
+* Session support, use -s session_name. Combine this with -r to resume a session other then the default
+* Ini file support, store some default values such as rainbow table directories.
+* Tab separated results (stdout)
+* Support pause during cracking and 'skip' during unicode correction for Linux
+* A readme / 'manual' !
+
+0.5 (16 Apr 2009, 22:47):
+* Support for the old non-indexed .rt format, it should work with both type of tables in one run... I didn't test this feature thoroughly
+* Using some other pieces of code for algorithms
+* Support for .lst files from Cain as input (patch from James Dickson) - use for example -c LMNT.lst
+* Fixed some bugs
+* Dunno anymore, left this version lying around for too long...
+
+0.4 (oops, a second 0.4) (13 Dec 2008, 18:20):
+* Improved file reading performance
+
+0.4 (27 Nov 2008, 00:09):
+* Source included
+* Memory usage down to about 50% (tnx sc00bz for pointing out the inefficiency, tnx jci for helping with the code)
+* Works under Linux! (using pthreads now instead of Windows threads)
+* Speed up: implemented MD4 reference implementation, not using OpenSSL for NTLM anymore (tnx Bitweasil for supplying 98% of the code)
+* Speed up: using OpenSSL a lot faster (tnx jci for pointing that out)
+* Probably some more small things i forgot
+
+0.3 (16 Nov 2008, 01:01):
+* Improved command line argument parsing (order no longer matters)
+* Option to write (temporary) output to a file, use -o pick_a_nice_filename.txt
+* Option to pause, press 'P' to pause/unpause (Windows only)
+* For pwdump searches: unicode correction is done when case correction fails
+
+0.2 (28 Oct 2008, 01:42):
+* False alarm checking now also multi threaded
+* Search one level of subdirectories for rainbow table files
+
+0.1 (27 Oct 2008, 00:14):
+* Initial multithreaded version, using Windows threads.
+* Using multiple threads for the pre-calculation part.
+* Added a simple 'progress' message, so you can see how many hashes are being pre-calculated
+

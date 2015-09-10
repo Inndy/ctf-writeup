@@ -1,0 +1,53 @@
+Windows users
+
+vc binaries:
+Ensure you have the VC++ 2010 x86 Redistributables installed
+https://www.microsoft.com/en-us/download/details.aspx?id=8328
+
+Later builds may require the x86 or x64 VC++ 2012 edition of the above
+https://www.microsoft.com/en-us/download/details.aspx?id=30679
+
+mingw binaries have no external requirements.
+
+Extract the binary archive to a directory and setup is complete.
+
+If you wish to build from source you can either use VC++ or MSYS/mingw.  You will need both openssl and pthreads includes and libraries.
+--------------------------------------------------------------------------------
+*nix users
+
+Ad-hoc binary builds are statically linked and have no external dependencies.
+
+Source builds need:
+1) g++
+2) make
+3) libc dev libs
+	libc6-dev in Debian/Ubuntu
+	glibc-headers in Centos, Fedora, and RHEL
+4) openssl dev libs
+	libssl-dev in Debian/Ubuntu
+	libopenssl-devel in Suse > 1110
+	openssl-devel in Centos, Fedora, Mandriva, OpenSUSE (older), SLE (older), RHEL
+5) pthreads dev libs
+	normally part of libc6-dev in Debian/Ubuntu
+
+Runtime performance is best when built using gcc >= 4.4.x, with large
+improvements in 4.5.x, larger in 4.6.x, and I have no benchmarked 4.7.x yet.
+
+Linux users
+Run make and you should be finished.
+For better performance add -mtune=native to the OPTIMIZATION variable in the Makefile.
+
+*bsd users
+You must use gmake instead of make at the current time.
+
+Mac OSX users
+You will need Xcode fully installed and then just run make.
+Some versions of g++ will allow -mtune=native as noted for better performance
+for Linux users.  If you enable the option and it fails to build then just use the Makefile as shipped.
+
+SunOS/Solaris/OpenSolaris users
+You must use gmake.  If the system fails to find g++ then either edit CC in the
+Makefile as needed or create a symlink in your PATH for g++.
+
+Linux binary builds/packages
+https://build.opensuse.org/package/show?package=rcracki&project=home%3Aquelrod is the head/trunk build and you may look for derived packages named similar to the release names.

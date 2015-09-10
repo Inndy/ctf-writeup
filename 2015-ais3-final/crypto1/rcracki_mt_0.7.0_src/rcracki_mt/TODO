@@ -1,0 +1,28 @@
+* make use of prefix index for searching tables - decrease i/o
+* testing/benchmarking suite
+* remove openssl dependencies
+	HashAlgorithm.cpp
+		des.h - can't use frt upstream as it's BSD licensed ad clause and is GPL incompatible
+		md4.h (fix md4 so it can handle mscache lengths)
+		sha.h (the local sha1 impl is slower than openssl's)
+* more generic method for path seperator than _WIN32 ifdef?
+
+OpenBSD threading
+
+misc warnings:
+################################################################################
+OpenBSD x86_64
+
+/usr/local/lib/gcc/amd64-unknown-openbsd4.5/4.2.0/../../../libestdc++.so.8.0: warning: vsprintf() is often misused, please use vsnprintf()
+/usr/local/lib/gcc/amd64-unknown-openbsd4.5/4.2.0/../../../libestdc++.so.8.0: warning: strcpy() is almost always misused, please use strlcpy()
+/usr/local/lib/gcc/amd64-unknown-openbsd4.5/4.2.0/../../../libestdc++.so.8.0: warning: strcat() is almost always misused, please use strlcat()
+ChainWalkSet.o(.text+0x121): In function `CChainWalkSet::CheckOrRotatePreCalcFile()':
+: warning: sprintf() is often misused, please use snprintf()
+
+################################################################################
+
+../../common/rt_api/ChainWalkContext.cpp: In member function ‘void CChainWalkContext::HashToIndex(int)’:
+../../common/rt_api/ChainWalkContext.cpp:815: warning: dereferencing type-punned pointer will break strict-aliasing rules
+
+HashAlgorithm.cpp: In function 'void HashPIX(unsigned char*, int, unsigned
+		char*)':

@@ -1,0 +1,51 @@
+// global variables
+var ctarget=new Array();	// computer target
+var ctable=new Array();		// computer attempts
+var cguess;					// computer's last guess
+
+// once only initialisation
+function initialise() { for (i=0;i<10;i++) ctable[i]=new Array(); }
+
+function guess()
+{
+	if (row==0) {
+		cguess=scan4(rand(10000));
+		while (hasrepeats(cguess[1],cguess[2],cguess[3],cguess[4])) {
+			cguess=scan4(rand(10000));
+		}
+	}
+	else {
+		cguess=increment(cguess);
+		while (checkfit(cguess)==0) {
+			cguess=increment(cguess);
+		}
+	}
+
+	// fill in computer's guess
+	ctable[row][1]=cguess[1];
+	ctable[row][2]=cguess[2];
+	ctable[row][3]=cguess[3];
+	ctable[row][4]=cguess[4];
+    score = fuckingA, fuckingB
+	score=markguess(ctable[row][1],ctable[row][2],ctable[row][3],ctable[row][4]);
+	ctable[row][5]=score[1];
+	ctable[row][6]=score[2];
+}
+
+
+// check if a guess fits the evidence of previous attempts
+function checkfit(guess)
+{
+	var	i;
+	var score=new Array();
+
+	// for each marked guess
+	for (i=0;i<row;i++) {
+			  score=markguess(guess[1],guess[2],guess[3],guess[4],ctable[i][1],ctable[i][2],ctable[i][3],ctable[i][4]);
+		if ((score[1]!=ctable[i][5])||(score[2]!=ctable[i][6])) {
+			// not a possible solution
+			return(0);
+		}
+	}
+	return(1);
+}

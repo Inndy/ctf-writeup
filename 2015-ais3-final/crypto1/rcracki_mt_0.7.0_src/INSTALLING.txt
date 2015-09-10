@@ -1,0 +1,3 @@
+Please follow the INSTALLING.txt instructions in rcracki_mt (for cli cpu/gpu).
+
+Please follow the INSTALLING.txt instructions in rcracki_mt-gui for gui.

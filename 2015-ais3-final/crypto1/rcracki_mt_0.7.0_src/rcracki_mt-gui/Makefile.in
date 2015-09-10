@@ -1,0 +1,65 @@
+# rcracki_mt-gui is a GTK GUI for rcracki_mt
+#
+# Copyright 2010, 2011, 2012 by Paragon
+# Copyright 2009, 2010, 2011, 2012 James Nobis <quel@quelrod.net>
+#
+# This file is part of rcracki_mt-gui.
+#
+# rcracki_mt-gui is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+#
+# rcracki_mt-gui is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with rcracki_mt-gui.  If not, see <http://www.gnu.org/licenses/>.
+
+PREFIX = @prefix@
+CXX = @CXX@
+CXXFLAGS = @GTK_CFLAGS@ @OpenSSL_CFLAGS@ @CXXFLAGS@ -I../rcracki_mt -Igui \
+	-I../../common/rt_api
+LIBS = @GTK_LIBS@ @OpenSSL_LIBS@ @LDFLAGS@
+OBJS = \
+../rcracki_mt/BaseRTReader.o \
+../rcracki_mt/ChainWalkContext.o \
+../rcracki_mt/ChainWalkSet.o \
+../rcracki_mt/CrackEngine.o \
+../rcracki_mt/fast_md4.o \
+../rcracki_mt/fast_md5.o \
+../rcracki_mt/HashAlgorithm.o \
+../rcracki_mt/HashRoutine.o \
+../rcracki_mt/HashSet.o \
+../rcracki_mt/keyspace.o \
+../rcracki_mt/lm2ntlm.o \
+../rcracki_mt/MemoryPool.o \
+../rcracki_mt/Public.o \
+../rcracki_mt/RainbowCrack.o \
+../rcracki_mt/rcrackiThread.o \
+../rcracki_mt/RTI2Reader.o \
+../rcracki_mt/RTIReader.o \
+../rcracki_mt/RTReader.o \
+../rcracki_mt/sha1.o \
+gui/GUI.o \
+gui/GUI_file.o \
+gui/GUI_hash.o \
+gui/GUI_main.o \
+gui/GUI_settings.o \
+gui/GUI_table.o \
+gui/GUI_database.o
+GUI = 1
+TARGET = rcracki_mt-gui
+
+all: rcracki_mt $(TARGET)
+
+rcracki_mt:
+	cd ../rcracki_mt && make gui && cd ../rcracki_mt-gui
+
+rcracki_mt-gui: $(OBJS)
+	$(CXX) $(OBJS) $(LIBS) -o rcracki_mt-gui
+
+clean:
+	rm -f $(OBJS) $(TARGET)
