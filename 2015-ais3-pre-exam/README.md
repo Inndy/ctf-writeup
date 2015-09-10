@@ -46,6 +46,8 @@ And you can see the flag in the comment of php code.
 
 ( @orangetw told me this :P )
 
+The key is `AIS3{php_wrapper_rocks}`
+
 ## web-2
 
 [JavaScript Deobfuscator](https://github.com/palant/jsdeobfuscator) plugin for Firefox is your friend.
@@ -57,6 +59,8 @@ And you can see the flag in the comment of php code.
 Post payload is `username=root&password=\' or 1=1 #\`.
 
 Don't ask me. I just fuzz it manually and I HATE WEB!
+
+The key is `AIS3{wow_you_notice_the_little_difference} `
 
 ## bin-1
 
@@ -130,7 +134,64 @@ print "".join(data)[:0x25]'
 
 ## bin-3
 
-TBA
+`start` initializes some register and flag, then jump to `jumper`. Actually, `jumper` is a strange main loop.
+
+```
+00000000004000b0 <_start>:
+  4000b0:       48 c7 04 25 34 04 60    mov    QWORD PTR ds:0x600434,0x1 # jumper flag
+  4000b7:       00 01 00 00 00
+  4000bc:       48 be 70 02 60 00 00    movabs rsi,0x600270 # string: "Congraz! Th..."
+  4000c3:       00 00 00
+  4000c6:       48 31 c9                xor    rcx,rcx # counter = 0
+  4000c9:       e9 82 01 00 00          jmp    400250 <jumper>
+```
+
+```
+# jumper is main loop
+0000000000400250 <jumper>:
+  400250:       48 89 cf                mov    rdi,rcx
+  # check if rdi(from rcx, counter) is a prime?
+  400253:       e8 f2 fe ff ff          call   40014a <is_prime>
+  # check jump flag
+  400258:       48 3b 04 25 34 04 60    cmp    rax,QWORD PTR ds:0x600434
+  40025f:       00
+  400260:       74 09                   je     40026b <jumper+0x1b>
+  400262:       8b 04 8d 57 03 60 00    mov    eax,DWORD PTR [rcx*4+0x600357]
+  400269:       ff d0                   call   rax # execute the function
+  40026b:       48 ff c1                inc    rcx # counter++
+  40026e:       eb e0                   jmp    400250 <jumper>
+```
+
+`check0` is the first clue, xor all characters and the value should be `0x1b`
+
+```
+00000000006003dc <check0>:
+  6003dc:       b8 00 00 00 00          mov    eax,0x0
+  6003e1:       30 d0                   xor    al,dl
+  6003e3:       48 c1 ea 08             shr    rdx,0x8
+  6003e7:       30 d0                   xor    al,dl
+  6003e9:       48 c1 ea 08             shr    rdx,0x8
+  6003ed:       30 d0                   xor    al,dl
+  6003ef:       48 c1 ea 08             shr    rdx,0x8
+  6003f3:       30 d0                   xor    al,dl
+  6003f5:       48 c1 ea 08             shr    rdx,0x8
+  6003f9:       30 d0                   xor    al,dl
+  6003fb:       48 c1 ea 08             shr    rdx,0x8
+  6003ff:       30 d0                   xor    al,dl
+  600401:       48 c1 ea 08             shr    rdx,0x8
+  600405:       30 d0                   xor    al,dl
+  600407:       48 c1 ea 08             shr    rdx,0x8
+  60040b:       30 d0                   xor    al,dl
+  60040d:       48 c1 ea 08             shr    rdx,0x8
+  600411:       c7 04 25 5b 03 60 00    mov    DWORD PTR ds:0x60035b,0x4001b9 <check1>
+  600418:       b9 01 40 00
+  60041c:       3c 1b                   cmp    al,0x1b
+  60041e:       74 12                   je     600432 <check0+0x56>
+  600420:       c7 04 25 57 03 60 00    mov    DWORD PTR ds:0x600357,0x4001df <exit>
+  600427:       df 01 40 00
+  60042b:       48 c7 c1 ff ff ff ff    mov    rcx,0xffffffffffffffff
+  600432:       c3                      ret
+```
 
 ## pwn-1
 
@@ -203,13 +264,19 @@ So we need (24 + 4) bytes junk and 4bytes 0x90909090 to overwrite it.
 python2 -c 'print "A"*28 + "\x90"*4' | nc $HOST $PORT
 ```
 
+The key is `AIS3{i_am_no_idea_what_to_write_qq}`
+
 ## pwn-2
 
 TBA
 
+The key is `AIS3{ok_now_you_are_the_beginner_of_buffer_overflow}`
+
 ## pwn-3
 
 TBA
+
+The key is `AIS3{5T4CK0V3RFL0W_15_0UR_900D_FR13ND}`
 
 ## crypto-1
 
@@ -260,6 +327,8 @@ the vigenere cipher is a method of encrypting alphabetic text by using a series 
 though the cipher is easy to understand and implement, for three centuries it resisted all attempts to break it. many people have tried to implement encryption schemes that are essentially vigenere ciphers. congratulations, the key is in http://ctf.ais3.org/files/thekeyofvigenerehahaha.txt
 ```
 
+The key is `AIS3{i_am_scared_of_you}`
+
 ## crypto-2
 
 [factordb](http://factordb.com/index.php?query=66473473500165594946611690873482355823120606837537154371392262259669981906291)
@@ -297,4 +366,7 @@ print rsa.decrypt(data, private_key)
 
 ## crypto-3
 
-Using [HashPump](https://github.com/bwall/HashPump). And this is the [exploit](assets/crypto3.py).
+Using [HashPump](https://github.com/bwall/HashPump) to perform length extension attack.
+And here is my [answer](assets/crypto3.py).
+
+The key is `AIS3{give_me_mdfive}`
