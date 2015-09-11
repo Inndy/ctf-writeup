@@ -1,0 +1,3 @@
+- First to solve the maze, path is black/blue dots, not the white part.
+- Data are hidden in the `blue` channel, extract them and put together, and you will see `BZ` header
+- `bzip2 -dc dumped_data_from_image | strings` and you have the private key now :)

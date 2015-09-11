@@ -24,11 +24,11 @@ def r_dfs(x, y, d=0):
     flag[x][y] = 1
 
     for i in D:
-        ret = r(x + i, y, d + 1)
+        ret = r_dfs(x + i, y, d + 1)
         if ret:
             maze[x][y] = '.'
             return [ (x, y) ] + ret
-        ret = r(x, y + i, d + 1)
+        ret = r_dfs(x, y + i, d + 1)
         if ret:
             maze[x][y] = '.'
             return [ (x, y) ] + ret
@@ -57,6 +57,8 @@ def r(x, y):
             q.append((x, y + i, p))
     return False
 
+# p = r_dfs(*A)
+# print('\n'.join( 'r(%d, %d);' % pt for pt in p[::-1] ))
 
 p = r(*A)
 path = []
