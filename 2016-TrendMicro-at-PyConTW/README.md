@@ -277,3 +277,9 @@ db 90 90
 然後就可以慢慢走完貪食蛇了
 
 ![easy snake game](p5/easy-snake.png)
+
+# 後記
+
+PyCon 2016 day1 聽完 au 的 keynote 之後就出去逛了一下 sponsors，趨勢看到有題目可以玩，原本以為是 programming contest，發現是 wargame 之後就開始玩了，都沒聽到議程 XDDD
+
+大概到中午的時候就搞定了 p1, p3，貪食蛇是之前 HITCON 的舊題重出，丟進 IDA Pro 看一下就搞定了，下午的時間大概花了一半在解 Minecraft 題，研究了很久很幸運可以用 MCEdit 處理，之後就跟 p4 奮鬥到兩點才睡，隔天下午才解出來，有夠累人的 QQ
