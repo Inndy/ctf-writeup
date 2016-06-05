@@ -276,6 +276,8 @@ db 90 90
 
 然後就可以慢慢走完貪食蛇了
 
+自動化程式可以在 (p5/run.c)[p5/run.c] 找到
+
 ![easy snake game](p5/easy-snake.png)
 
 # 後記
