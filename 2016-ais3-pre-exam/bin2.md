@@ -1,0 +1,125 @@
+# bin2
+
+```
+'H\xb8E YOU~?}PH\xb8WHERE ARPH\xb8NOTFLAG{PH\x89\xe6H1\xd2\xb0\x8c0\xc8\x88\x04\x16H\xff\xc2\xb0\x840\xc8\x88\x04\x16H\xff\xc2\xb0\x9e0\xc8\x88\x04\x16H\xff\xc2\xb0\xde0\xc8\x88\x04\x16H\xff\xc2\xb0\x960\xc8\x88\x04\x16H\xff\xc2\xb0\x950\xc8\x88\x04\x16H\xff\xc2\xb0\xd50\xc8\x88\x04\x16H\xff\xc2\xb0\xdb0\xc8\x88\x04\x16H\xff\xc2\xb0\xb20\xc8\x88\x04\x16H\xff\xc2\xb0\xdb0\xc8\x88\x04\x16H\xff\xc2\xb0\xd90\xc8\x88\x04\x16H\xff\xc2\xb0\xcd0\xc8\x88\x04\x16H\xff\xc2\xb0\x9f0\xc8\x88\x04\x16H\xff\xc2\xb0\x880\xc8\x88\x04\x16H\xff\xc2\xb0\x9b0\xc8\x88\x04\x16H\xff\xc2\xb0\x880\xc8\x88\x04\x16H\xff\xc2\xb0\x9f0\xc8\x88\x04\x16H\xff\xc2\xb0\x9e0\xc8\x88\x04\x16H\xff\xc2\xb0\x880\xc8\x88\x04\x16H\xff\xc2\xb0\xcd0\xc8\x88\x04\x16H\xff\xc2\xb0\x940\xc8\x88\x04\x16H\xff\xc2\xb0\x820\xc8\x88\x04\x16H\xff\xc2\xb0\x930\xc8\x88\x04\x16H\xff\xc2\xb0\x900\xc8\x88\x04\x16H\xff\xc2j<XH1\xff\x0f\x05'
+```
+
+是 python string，裡面是 x64 shellcode，看 [bin2/disasm.py](bin2/disasm.py)
+
+```
+00000000  48B84520594F557E  mov rax,0x7d3f7e554f592045
+         -3F7D
+0000000A  50                push rax
+0000000B  48B8574845524520  mov rax,0x5241204552454857
+         -4152
+00000015  50                push rax
+00000016  48B84E4F54464C41  mov rax,0x7b47414c46544f4e
+         -477B
+00000020  50                push rax
+00000021  4889E6            mov rsi,rsp
+00000024  4831D2            xor rdx,rdx
+00000027  B08C              mov al,0x8c
+00000029  30C8              xor al,cl
+0000002B  880416            mov [rsi+rdx],al
+0000002E  48FFC2            inc rdx
+00000031  B084              mov al,0x84
+00000033  30C8              xor al,cl
+00000035  880416            mov [rsi+rdx],al
+00000038  48FFC2            inc rdx
+0000003B  B09E              mov al,0x9e
+0000003D  30C8              xor al,cl
+0000003F  880416            mov [rsi+rdx],al
+00000042  48FFC2            inc rdx
+00000045  B0DE              mov al,0xde
+00000047  30C8              xor al,cl
+00000049  880416            mov [rsi+rdx],al
+0000004C  48FFC2            inc rdx
+0000004F  B096              mov al,0x96
+00000051  30C8              xor al,cl
+00000053  880416            mov [rsi+rdx],al
+00000056  48FFC2            inc rdx
+00000059  B095              mov al,0x95
+0000005B  30C8              xor al,cl
+0000005D  880416            mov [rsi+rdx],al
+00000060  48FFC2            inc rdx
+00000063  B0D5              mov al,0xd5
+00000065  30C8              xor al,cl
+00000067  880416            mov [rsi+rdx],al
+0000006A  48FFC2            inc rdx
+0000006D  B0DB              mov al,0xdb
+0000006F  30C8              xor al,cl
+00000071  880416            mov [rsi+rdx],al
+00000074  48FFC2            inc rdx
+00000077  B0B2              mov al,0xb2
+00000079  30C8              xor al,cl
+0000007B  880416            mov [rsi+rdx],al
+0000007E  48FFC2            inc rdx
+00000081  B0DB              mov al,0xdb
+00000083  30C8              xor al,cl
+00000085  880416            mov [rsi+rdx],al
+00000088  48FFC2            inc rdx
+0000008B  B0D9              mov al,0xd9
+0000008D  30C8              xor al,cl
+0000008F  880416            mov [rsi+rdx],al
+00000092  48FFC2            inc rdx
+00000095  B0CD              mov al,0xcd
+00000097  30C8              xor al,cl
+00000099  880416            mov [rsi+rdx],al
+0000009C  48FFC2            inc rdx
+0000009F  B09F              mov al,0x9f
+000000A1  30C8              xor al,cl
+000000A3  880416            mov [rsi+rdx],al
+000000A6  48FFC2            inc rdx
+000000A9  B088              mov al,0x88
+000000AB  30C8              xor al,cl
+000000AD  880416            mov [rsi+rdx],al
+000000B0  48FFC2            inc rdx
+000000B3  B09B              mov al,0x9b
+000000B5  30C8              xor al,cl
+000000B7  880416            mov [rsi+rdx],al
+000000BA  48FFC2            inc rdx
+000000BD  B088              mov al,0x88
+000000BF  30C8              xor al,cl
+000000C1  880416            mov [rsi+rdx],al
+000000C4  48FFC2            inc rdx
+000000C7  B09F              mov al,0x9f
+000000C9  30C8              xor al,cl
+000000CB  880416            mov [rsi+rdx],al
+000000CE  48FFC2            inc rdx
+000000D1  B09E              mov al,0x9e
+000000D3  30C8              xor al,cl
+000000D5  880416            mov [rsi+rdx],al
+000000D8  48FFC2            inc rdx
+000000DB  B088              mov al,0x88
+000000DD  30C8              xor al,cl
+000000DF  880416            mov [rsi+rdx],al
+000000E2  48FFC2            inc rdx
+000000E5  B0CD              mov al,0xcd
+000000E7  30C8              xor al,cl
+000000E9  880416            mov [rsi+rdx],al
+000000EC  48FFC2            inc rdx
+000000EF  B094              mov al,0x94
+000000F1  30C8              xor al,cl
+000000F3  880416            mov [rsi+rdx],al
+000000F6  48FFC2            inc rdx
+000000F9  B082              mov al,0x82
+000000FB  30C8              xor al,cl
+000000FD  880416            mov [rsi+rdx],al
+00000100  48FFC2            inc rdx
+00000103  B093              mov al,0x93
+00000105  30C8              xor al,cl
+00000107  880416            mov [rsi+rdx],al
+0000010A  48FFC2            inc rdx
+0000010D  B090              mov al,0x90
+0000010F  30C8              xor al,cl
+00000111  880416            mov [rsi+rdx],al
+00000114  48FFC2            inc rdx
+00000117  6A3C              push byte +0x3c
+00000119  58                pop rax
+0000011A  4831FF            xor rdi,rdi
+0000011D  0F05              syscall
+```
+
+可以看到 `cl` 是不確定的 xor-key ，寫 script 炸： [bin2/solve-bin2.py](bin2/solve-bin2.py)
+
+`ais3{x86_64 reverse yo~}`
