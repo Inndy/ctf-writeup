@@ -32,7 +32,7 @@ Source Code:
 ?>
 ```
 
-使用 `length extension attack` 在 `exipre=$TIME` 後面串上 `&expire=$NEW_TIME` 進行攻擊
+使用 `length extension attack` 在 `expire=$TIME` 後面串上 `&expire=$NEW_TIME` 進行攻擊
 
 使用的工具是 [hashpump](https://github.com/bwall/HashPump)
 
