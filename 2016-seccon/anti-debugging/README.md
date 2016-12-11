@@ -3,7 +3,11 @@
 - category: binary
 - points: 100
 
-Here's a impossible condition which is hidden from decompiler:
+Since code was not protected, we just analyze it statically.
+
+Here's a impossible condition (0x401652) which is hidden from decompiler:
+
+Just patch it and make it jump, then you will get flag.
 
 ![Figure 1 -- dead condition](1.png)
 
