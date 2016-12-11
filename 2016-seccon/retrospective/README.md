@@ -7,4 +7,4 @@ It's a P-Code VB6 binary file, decompiled with [VBDecompiler](https://www.vb-dec
 
 Tips: Optimization function sucks.
 
-[partial decompiled code](retrospective.vb)
+[partial decompiled code with a little human optimization](retrospective.vb)

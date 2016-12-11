@@ -111,11 +111,10 @@ Private Sub Command1_Click() '403F18
   loc_403BA1:   If CBool(var_414) Then
   loc_403BA4:     GoTo loc_badkey
   loc_403BA7:   End If
-  loc_403BA7:   var_C4 = 0
-  loc_403BAC:   var_43C = var_C4 'Variant
-  loc_403BB0:   var_180 = 0
-  loc_403BB8:   var_C4 = 1
-  loc_403BC7:   var_B4 = Len(splitted(var_C4))
+
+  ' splitted[1] == "VB"
+  loc_403BAC:   hsum = 0 'Variant
+  loc_403BC7:   var_B4 = Len(splitted(1))
   loc_403BCB:   var_12C = 1
   loc_403BD0:   var_D4 = (var_B4 - var_12C)
   loc_403BD7:   For i = 0 To var_D4: i = i 'Variant
@@ -123,62 +122,40 @@ Private Sub Command1_Click() '403F18
   loc_403C0D:     var_F4 = Mid(str, CLng(i +1), 1)
   loc_403C18:     var_8C = CStr(var_F4)
   loc_403C21:     ch = CVar(Asc(var_8C)) 'Integer
-  loc_403C30:     var_11C = (ch * (4 ^ i))
-  loc_403C34:     var_13C = (var_43C + var_11C)
-  loc_403C38:     var_43C = var_13C 'Variant
+  loc_403C38:     hsum = (hsum + (ch * (4 ^ i)))
   loc_403C4D:   Next i 'Variant
-  loc_403C7D:   var_10C = (var_43C <> 350) Or (Len(splitted(1)) <> 2)
+  loc_403C7D:   var_10C = (hsum <> 350) Or (Len(splitted(1)) <> 2)
   loc_403C86:   If CBool(var_10C) Then
   loc_403C89:     GoTo loc_badkey
   loc_403C8C:   End If
-  
-  
-  loc_403C98:   var_43C = (350 * 256) 'Variant
+
+  ' len(splitted[2]) == 1 and ord(splitted[1]) == 0x56
+  loc_403C98:   hsum = (350 * 256) 'Variant
   loc_403CC3:   For i = 0 To (Len(splitted(2)) - 1): i = i 'Variant
   loc_403CF9:     var_F4 = Mid(splitted(1), CLng((i + 1)), 1)
   loc_403D04:     var_8C = CStr(var_F4)
   loc_403D0D:     ch = CVar(Asc(var_8C)) 'Integer
-  loc_403D24:     var_43C = var_43C + (ch * (4 ^ i))
+  loc_403D24:     hsum = hsum + (ch * (4 ^ i))
   loc_403D39:   Next i 'Variant
-  loc_403D4D:   If CBool(var_43C <> &H15E56) Then
+  loc_403D4D:   If CBool(hsum <> &H15E56) Then
   loc_403D50:     GoTo loc_badkey
   loc_403D53:   End If
-  
-  
-  loc_403D58:   var_43C = 0 'Variant
-  loc_403D71:   var_8C = Me.Text1.Text
-  loc_403D80:   var_E4 = CVar((Len(var_8C) - 1)) 'Long
-  loc_403D8A:   For i = 0 To var_E4: var_44C = i 'Variant
-  loc_403D9D:     var_8C = Me.Text1.Text
-  loc_403DA5:     var_D4 = 1
-  loc_403DAD:     var_C4 = 1
-  loc_403DB2:     var_A4 = (var_44C + var_C4)
-  loc_403DBB:     var_B4 = CVar(var_8C) 'String
-  loc_403DC1:     var_F4 = Mid(var_B4, CLng(var_A4), var_D4)
+
+
+  loc_403D58:   hsum = 0 'Variant
+  loc_403D8A:   For i = 0 To (Len(Me.Text1.Text) - 1):
+  loc_403DBB:     var_B4 = CVar(Me.Text1.Text) 'String
+  loc_403DC1:     var_F4 = Mid(var_B4, CLng(i + 1), 1)
   loc_403DC9:     var_94 = CStr(var_F4)
-  loc_403DD2:     var_170 = CVar(Asc(var_94)) 'Integer
-  loc_403DDD:     var_10C = 2 ^ var_44C
-  loc_403DE1:     var_11C = (var_170 * var_10C)
-  loc_403DE5:     var_13C = (var_43C + var_11C)
-  loc_403DE9:     var_43C = var_13C 'Variant
+  loc_403DD2:     charcode = CVar(Asc(var_94)) 'Integer
+  loc_403DE9:     hsum = (hsum + (charcode * (2 ^ i)))
   loc_403E01:   Next i 'Variant
-  loc_403E14:   var_8C = Me.Text1.Text
-  loc_403E1C:   var_C4 = &H620F3671
-  loc_403E36:   var_B4 = CVar(var_8C) 'String
-  loc_403E3C:   var_D4 = StrConv(var_B4, &H80, 0)
-  loc_403E44:   var_4B0 = var_D4
-  loc_403E50:   var_94 = Proc_2_0_403028(var_4B0) 'SHA1, because of some magic constant value from module
-  loc_403E5F:   var_E4 = (var_94 = "8B292F1A-9C4631B3-E13CD49C-64EF7454-0352D0C0")
-  loc_403E63:   var_F4 = (var_43C = var_C4) And var_E4
-  loc_403E78:   If CBool(var_F4) Then
-  loc_403E88:     var_94 = Me.Text1.Text
-  loc_403E93:     var_C4 = vbNullString
-  loc_403E98:     var_B4 = var_C4
-  loc_403EAA:     var_8C = "Thank you for your purchase :-) " & vbCrLf
-  loc_403EB1:     var_FC = var_8C & "And, "
-  loc_403EB8:     var_4B4 = var_FC & var_94
-  loc_403EBF:     var_A4 = CVar(var_4B4 & " is Flag.") 'String
-  loc_403EC2:     MsgBox(var_A4, 0, var_B4, var_D4, var_F4)
+
+  loc_403E3C:   flag = StrConv(CVar(Me.Text1.Text), &H80, 0)
+  loc_403E50:   long_hash = Proc_2_0_403028(flag) 'SHA1, because of some magic constant value from module
+  loc_403E78:   If CBool((hsum = &H620F3671) And (long_hash = "8B292F1A-9C4631B3-E13CD49C-64EF7454-0352D0C0")) Then
+  loc_403EBF:     var_A4 = CVar("Thank you for your purchase :-) " & vbCrLf & "And, " & Me.Text1.Text & " is Flag.") 'String
+  loc_403EC2:     MsgBox(var_A4, 0, vbNullString, flag, True)
   loc_403EE0:     GoTo loc_403F14
   loc_badkey:     ' Referenced from: 403D50
   loc_badkey:     ' Referenced from: 403C89
@@ -186,11 +163,7 @@ Private Sub Command1_Click() '403F18
   loc_badkey:     ' Referenced from: 4039B6
   loc_badkey:   End If
   loc_badkey: End If
-  loc_403EE9: var_E4 = vbNullString
-  loc_403EEE: var_B4 = var_E4
-  loc_403EF9: var_C4 = "Sorry, This key is not valid."
-  loc_403EFE: var_A4 = var_C4
-  loc_403F04: MsgBox(var_A4, 0, var_B4, var_D4, var_F4)
+  loc_403F04: MsgBox("Sorry, This key is not valid.", 0, vbNullString, var_D4, var_F4)
   loc_403F14: ' Referenced from: 403EE0
   loc_403F14: Exit Sub
 End Sub
