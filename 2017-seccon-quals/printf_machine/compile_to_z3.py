@@ -30,19 +30,12 @@ print('SECCON{%s}' % F)
 
 state = SWAP
 
-def emit(fmt, args):
-    args = [i if i < 16 else '&%d' % (i - 16) for i in args]
-    print(fmt.format(*args))
-
 def proc(t, args, fmt):
     global state
-
-    # print('/* %d */' % t, end=' ')
 
     if state == SWAP:
         if t == 2:
             if 4 not in args:
-                #print('swap({1}, {2});'.format(*args))
                 print('b[{1}], b[{2}] = b[{2}], b[{1}];'.format(*args))
         else:
             state = BEGIN
@@ -52,7 +45,6 @@ def proc(t, args, fmt):
             print(fmt.format(*args))
         elif t == 3:
             print(fmt.format(*args))
-            #print('b[{3}] = b[{2}]'.format(*args))
         elif t == 5:
             print(fmt.format(*args))
         elif t == 4:
@@ -60,16 +52,12 @@ def proc(t, args, fmt):
             return proc(t, args, fmt)
     elif state == END:
         r = fmt.format(*args)
-        #print(r, args, end = ' // ')
         if t == 4:
             assert r.startswith('b[1] = b[3] + ')
             print('s.add((b[3] + %d) %% 256 == 0)' % args[3])
         elif t == 1:
-            #print('** 1')
             pass
         elif t == 5:
-            #print('** 5')
-            pass
             state = BEGIN
 
 print(HEAD)
